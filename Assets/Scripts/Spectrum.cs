@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using DG.Tweening;
 public class Spectrum : MonoBehaviour {
 
     // Use this for initialization
@@ -32,7 +32,10 @@ public class Spectrum : MonoBehaviour {
         {
             Vector3 previousScale = Platform[i].transform.localScale;
             previousScale.y = Mathf.Lerp(previousScale.y, spectrum[i] * 3, Time.deltaTime * 30);
-            Platform[i].transform.localScale = previousScale;
+
+            //Platform[i].transform.localScale = previousScale; 
+            Platform[i].transform.DOScaleY(previousScale.y, 2f);
+
         }
     }
 }
