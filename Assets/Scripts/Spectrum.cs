@@ -5,23 +5,23 @@ public class Spectrum : MonoBehaviour {
 
     // Use this for initialization
     public GameObject prefab;
-    public float gridX = 3f;
-    public float gridY = 3f;
-    public float spacing = 2f;
+    //public float gridX = 1f;
+    //public float gridY = 1f;
+    public float spacing = 1f;
     public int numberOfObjects = 60;
-    public GameObject[] Platform;
+    public GameObject[] Platform1;
 
     void Start()
     {
-        for (int y = 0; y < gridY; y++)
+        for (int y = 0; y < 3; y++)
         {
-            for (int x = 0; x < gridX; x++)
+            for (int x = 0; x < 3; x++)
             {
-                Vector3 pos = new Vector3(x, -5/spacing, y) * spacing;
+                Vector3 pos = new Vector3(x, -5 / spacing, y) * spacing;
                 Instantiate(prefab, pos, Quaternion.identity);
             }
         }
-        Platform = GameObject.FindGameObjectsWithTag("Platform1");
+        Platform1 = GameObject.FindGameObjectsWithTag("Platform1");
     }
 
     // Update is called once per frame
@@ -30,12 +30,11 @@ public class Spectrum : MonoBehaviour {
         float[] spectrum = new float[1024]; AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Hamming);
         for (int i = 0; i < numberOfObjects; i++)
         {
-            Vector3 previousScale = Platform[i].transform.localScale;
+            Vector3 previousScale = Platform1[i].transform.localScale;
             previousScale.y = Mathf.Lerp(previousScale.y, spectrum[i] * 3, Time.deltaTime * 30);
 
-            //Platform[i].transform.localScale = previousScale; 
-            Platform[i].transform.DOScaleY(previousScale.y, 2f);
-
+            //Platform1[i].transform.localScale = previousScale; 
+            Platform1[i].transform.DOScaleY(previousScale.y, 2f);
         }
     }
 }
